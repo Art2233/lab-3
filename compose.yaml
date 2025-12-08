@@ -28,8 +28,8 @@ services:
       - "5432:5432"
 
   pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4-new
+    image: dpage/pgadmin5
+    container_name: pgadmin5-new
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: admin
