@@ -1,0 +1,37 @@
+<div class="row m-0 p-0 h-100">
+    <div class="col-1"></div>
+    <div class="col main-col">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs">
+            <li [ngbNavItem]="Tabs.Cities">
+                <button ngbNavLink>Cities</button>
+                <ng-template ngbNavContent>
+                    <app-cities
+                        (onToggleCityEditMode)="store.dispatch(CitiesActions.ToggleEditCityModeAction($event))"
+                        (onToggleNewCityMode)="store.dispatch(CitiesActions.ToggleNewCityModeAction())"
+                        (onSaveCity)="store.dispatch(CitiesActions.SaveCityItemAction($event))"
+                        (onDeleteCity)="store.dispatch(CitiesActions.DeleteCityItemAction($event))"
+                        [cities]="(cities$ | async) ?? []"
+                        [isNewCityMode]="(isNewCityMode$ | async) ?? false"
+                        [isEditCityMode]="(isEditCityMode$ | async) ?? false"
+                    >
+                    </app-cities>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="Tabs.Stations">
+                <button ngbNavLink>Stations</button>
+                <ng-template ngbNavContent>
+
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="Tabs.Trips">
+                <button ngbNavLink>Trips</button>
+                <ng-template ngbNavContent>
+
+                </ng-template>
+            </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav" class="mt-2 nav-outlet"></div>
+    </div>
+    <div class="col-1"></div>
+</div>

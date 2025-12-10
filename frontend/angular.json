@@ -7,7 +7,23 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": true,
+          "skipTests": true,
+          "type": "component"
+        },
+        "@schematics/angular:directive": {
+          "standalone": true,
+          "skipTests": true,
+          "type": "directive"
+        },
+        "@schematics/angular:pipe": {
+          "standalone": true,
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true,
+          "type": "service"
         }
       },
       "root": "",
@@ -31,7 +47,9 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "@angular/cdk/overlay-prebuilt.css",
+              "./node_modules/@perfectmemory/ngx-contextmenu/src/assets/stylesheets/base.scss"
             ]
           },
           "configurations": {

@@ -1,19 +1,19 @@
 CREATE TABLE IF NOT EXISTS city (
-    id   SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS station (
-    id      SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     city_id INT NOT NULL REFERENCES city(id) ON DELETE CASCADE,
-    name    VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS trip (
-    id             SERIAL PRIMARY KEY,
-    station_id     INT NOT NULL REFERENCES station(id) ON DELETE CASCADE,
-    train_number   VARCHAR(20)  NOT NULL,
-    destination    VARCHAR(100) NOT NULL,
-    departure_time TIMESTAMP    NOT NULL,
-    arrival_time   TIMESTAMP
+    id SERIAL PRIMARY KEY,
+    station_id INT NOT NULL REFERENCES station(id) ON DELETE CASCADE,
+    train_number VARCHAR(20) NOT NULL,
+    destination VARCHAR(100) NOT NULL,
+    departure_time TIMESTAMP NOT NULL,
+    arrival_time TIMESTAMP
 );

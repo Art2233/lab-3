@@ -1,0 +1,28 @@
+// ...existing code...
+
+.city-edit-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.city-input {
+    padding: 0.1rem 0.35rem;
+    height: 1.8rem;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    width: 250px;
+}
+
+.city-icon {
+    cursor: pointer;
+    transition: color 0.15s ease, transform 0.1s ease;
+}
+
+.city-icon-accept {
+    color: #28a745;
+}
+
+.city-icon-cancel {
+    color: #dc3545;
+}

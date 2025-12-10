@@ -1,0 +1,66 @@
+<div class="page-row h-100">
+    <div class="table-wrap">
+        <div class="table-responsive h-100">
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th class="number">#</th>
+                        <th class="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (cityItem of cities; track $index) {
+                        <tr
+                            [contextMenu]="isNewCityMode || isEditCityMode ? undefined : cityMenu"
+                            [contextMenuValue]="cityItem"
+                        >
+                            <th scope="row">{{ $index + 1 }}</th>
+                            <td>
+                                <app-city-view
+                                    (onClose)="onToggleCityEditMode.emit({ cityId: cityItem.item.id, mode: ItemMode.View })"
+                                    (onSaveCity)="onSaveCity.emit($event)"
+                                    [cityItem]="cityItem"
+                                >
+                                </app-city-view>
+                            </td>
+                        </tr>
+                    }
+
+                    @if (isNewCityMode) {
+                        <tr>
+                            <th scope="row">{{ cities.length + 1 }}</th>
+                            <td>
+                                <app-city-view
+                                    (onClose)="onToggleNewCityMode.emit()"
+                                    (onSaveCity)="onSaveCity.emit($event)"
+                                    [cityItem]="newCity"
+                                >
+                                </app-city-view>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="btn-col mt-3 mb-10">
+        <button
+            class="btn btn-primary w-auto"
+            (click)="onToggleNewCityMode.emit()"
+            [disabled]="isNewCityMode || isEditCityMode"
+        >
+            Add City
+        </button>
+    </div>
+</div>
+
+<context-menu #cityMenu menuClass="context-menu">
+    @for(menuItem of contextMenuItems; track $index) {
+        <ng-template contextMenuItem (execute)="menuItem.action($event.value)">
+            <i class="{{ menuItem.icon }}"></i>
+            {{ menuItem.label }}
+        </ng-template>
+    }
+</context-menu>

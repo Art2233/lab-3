@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-12">
+        <div>
+            @if(cityItemCopy.mode === ItemMode.View) {
+                {{ cityItemCopy.item.name }}
+            }
+            @else {
+                <div class="city-edit-wrap">
+                    <input
+                        #inputField
+                        type="text"
+                        class="form-control form-control-sm city-input"
+                        placeholder="City name"
+                        [(ngModel)]="cityItemCopy.item.name"
+                    >
+    
+                    <i
+                        class="fa fa-check city-icon city-icon-accept"
+                        title="Save"
+                        role="button"
+                        tabindex="0"
+                        (click)="onSaveCity.emit({ item: cityItemCopy.item })"
+                    ></i>
+    
+                    <i
+                        class="fa fa-times city-icon city-icon-cancel"
+                        title="Cancel"
+                        role="button"
+                        tabindex="0"
+                        (click)="onClose.emit()"
+                    ></i>
+                </div>
+            }
+        </div>
+    </div>
+</div>

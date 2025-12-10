@@ -4,12 +4,27 @@
 /* Font Awesome 4.7.0 */
 @import url('font-awesome/css/font-awesome.min.css');
 
-html, body {
+@import url('./styles/context-menu.scss');
+
+html,
+body {
     height: 100%;
     margin: 0;
 }
 
 .alert {
-  max-width: 100%;
-  overflow-x: auto;
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.tab-content>.active {
+    height: 100%;
+}
+
+.table-responsive {
+    overflow-x: hidden;
+}
+
+.fa {
+    font-size: 18px;
 }
