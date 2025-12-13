@@ -11,6 +11,10 @@
                 <ul>
                     <li>На цій сторінці можна викликати SQL запити прямо з браузера</li>
                     <li>Результати можна перевірити в базі даних</li>
+                    <li>
+                        Приклад для НЕбезпечного запиту:
+                        <p>test'); DELETE FROM city WHERE id = 6; --</p>
+                    </li>
                 </ul>
             </div>
 
@@ -20,16 +24,24 @@
                     placeholder="Sql"
                     id="sqlTextarea"
                     style="height: 200px"
-                    [(ngModel)]="sql"
+                    [(ngModel)]="text"
                 ></textarea>
-                <label for="sqlTextarea">Sql</label>
+                <label for="sqlTextarea">Text</label>
             </div>
             <button
                 type="button"
                 class="btn btn-primary mt-3 d-block"
                 (click)="request()"
             >
-                Відправити
+                Відправити (безпечно)
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-danger mt-3 d-block"
+                (click)="requestUnsafe()"
+            >
+                Відправити (небезпечно)
             </button>
 
             @if(!!responseText) {

@@ -11,7 +11,7 @@ export class MainPage {
     constructor(
         private router: Router
     ) {}
-    goTo(url: 'non-injected' | 'railway') {
+    goTo(url: 'test-req' | 'railway') {
         this.router.navigate([url]);
     }
 }

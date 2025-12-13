@@ -23,6 +23,6 @@ html, body {
 }
 
 .nav-outlet {
-  flex: 1 1 auto;  // занимает всю оставшуюся высоту
-  min-height: 0;   // чтобы нормально работал внутренний скролл
+  flex: 1 1 auto;
+  min-height: 0;
 }
