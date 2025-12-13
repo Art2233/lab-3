@@ -1,51 +1,50 @@
-<div class="page-row h-100">
-    <div class="table-wrap">
-        <div class="table-responsive h-100">
-            <table class="table table-striped mb-0">
-                <thead>
-                    <tr>
-                        <th class="number">#</th>
-                        <th class="col">City</th>
+<app-table-container [isLoading]="isLoading">
+
+    <ng-template #content>
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th class="number">#</th>
+                    <th class="col">City</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (cityItem of cities; track $index) {
+                    <tr
+                        [contextMenu]="isNewCityMode || isEditCityMode ? undefined : cityMenu"
+                        [contextMenuValue]="cityItem"
+                    >
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>
+                            <app-city-view
+                                (onClose)="onToggleCityEditMode.emit({ cityId: cityItem.item.id, mode: ItemMode.View })"
+                                (onSaveCity)="onSaveCity.emit($event)"
+                                [cityItem]="cityItem"
+                            >
+                            </app-city-view>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @for (cityItem of cities; track $index) {
-                        <tr
-                            [contextMenu]="isNewCityMode || isEditCityMode ? undefined : cityMenu"
-                            [contextMenuValue]="cityItem"
-                        >
-                            <th scope="row">{{ $index + 1 }}</th>
-                            <td>
-                                <app-city-view
-                                    (onClose)="onToggleCityEditMode.emit({ cityId: cityItem.item.id, mode: ItemMode.View })"
-                                    (onSaveCity)="onSaveCity.emit($event)"
-                                    [cityItem]="cityItem"
-                                >
-                                </app-city-view>
-                            </td>
-                        </tr>
-                    }
+                }
 
-                    @if (isNewCityMode) {
-                        <tr>
-                            <th scope="row">{{ cities.length + 1 }}</th>
-                            <td>
-                                <app-city-view
-                                    (onClose)="onToggleNewCityMode.emit()"
-                                    (onSaveCity)="onSaveCity.emit($event)"
-                                    [cityItem]="newCity"
-                                >
-                                </app-city-view>
-                            </td>
-                        </tr>
-                    }
+                @if (isNewCityMode) {
+                    <tr>
+                        <th scope="row">{{ cities.length + 1 }}</th>
+                        <td>
+                            <app-city-view
+                                (onClose)="onToggleNewCityMode.emit()"
+                                (onSaveCity)="onSaveCity.emit($event)"
+                                [cityItem]="newCity"
+                            >
+                            </app-city-view>
+                        </td>
+                    </tr>
+                }
 
-                </tbody>
-            </table>
-        </div>
-    </div>
+            </tbody>
+        </table>
+    </ng-template>
 
-    <div class="btn-col mt-3 mb-10">
+    <ng-template #button>
         <button
             class="btn btn-primary w-auto"
             (click)="onToggleNewCityMode.emit()"
@@ -53,8 +52,8 @@
         >
             Add City
         </button>
-    </div>
-</div>
+    </ng-template>
+</app-table-container>
 
 <context-menu #cityMenu menuClass="context-menu">
     @for(menuItem of contextMenuItems; track $index) {

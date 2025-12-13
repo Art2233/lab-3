@@ -1,4 +1,4 @@
-package com.backend.backend.utils;
+package com.backend.backend.entity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

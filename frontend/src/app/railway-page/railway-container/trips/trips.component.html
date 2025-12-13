@@ -1,0 +1,79 @@
+<app-table-container [isLoading]="isLoading">
+
+    <ng-template #content>
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <div class="row">
+                        <th class="number">#</th>
+                        <th class="col">Departure Station</th>
+                        <th class="col">Arrival Station</th>
+                        <th class="col">Train Number</th>
+                        <th class="col">Departure Time</th>
+                        <th class="col">Arrival Time</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+                @for (tripItem of trips; track $index) {
+                    <tr 
+                        [contextMenu]="isNewTripMode || isEditTripMode ? undefined : tripMenu"
+                        [contextMenuValue]="tripItem"
+                    >
+                        <div class="row">
+                            <th class="number">{{ $index + 1 }}</th>
+
+                            <td class="col">
+                                <app-trip-view
+                                    (onSave)="onSaveTrip.emit($event)"
+                                    (onClose)="onToggleEditTripMode.emit({ tripId: tripItem.item.id, mode: ItemMode.View })"
+                                    [tripeItem]="tripItem"
+                                    [statiosStorage]="stationsStorage"
+                                    [citiesStorage]="citiesStorage"
+                                >
+                                </app-trip-view>
+                            </td>
+                        </div>
+                    </tr>
+                }
+
+                @if (isNewTripMode) {
+                    <tr>
+                        <div class="row">
+                            <th class="number">{{ trips.length + 1 }}</th>
+                            <td class="col">
+                                <app-trip-view
+                                    (onSave)="onSaveTrip.emit($event)"
+                                    (onClose)="onToggleNewTripMode.emit()"
+                                    [tripeItem]="newTrip"
+                                    [statiosStorage]="stationsStorage"
+                                    [citiesStorage]="citiesStorage"
+                                >
+                                </app-trip-view>
+                            </td>
+                        </div>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </ng-template>
+
+    <ng-template #button>
+        <button
+            class="btn btn-primary w-auto"
+            (click)="onToggleNewTripMode.emit()"
+            [disabled]="isNewTripMode || isEditTripMode"
+        >
+            Add Trip
+        </button>
+    </ng-template>
+</app-table-container>
+
+<context-menu #tripMenu menuClass="context-menu">
+    @for(menuItem of contextMenuItems; track $index) {
+        <ng-template contextMenuItem (execute)="menuItem.action($event.value)">
+            <i class="{{ menuItem.icon }}"></i>
+            {{ menuItem.label }}
+        </ng-template>
+    }
+</context-menu>

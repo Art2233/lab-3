@@ -13,22 +13,31 @@
                         placeholder="City name"
                         [(ngModel)]="cityItemCopy.item.name"
                     >
-    
-                    <i
-                        class="fa fa-check city-icon city-icon-accept"
-                        title="Save"
-                        role="button"
-                        tabindex="0"
+
+                    <button
+                        class="btn-default"
                         (click)="onSaveCity.emit({ item: cityItemCopy.item })"
-                    ></i>
-    
-                    <i
-                        class="fa fa-times city-icon city-icon-cancel"
-                        title="Cancel"
-                        role="button"
-                        tabindex="0"
+                        [disabled]="!cityItemCopy.item.name.length"
+                    >
+                        <i
+                            class="fa fa-check city-icon city-icon-accept"
+                            title="Save"
+                            role="button"
+                            tabindex="0"
+                        ></i>
+                    </button>
+
+                    <button
+                        class="btn-default"
                         (click)="onClose.emit()"
-                    ></i>
+                    >
+                        <i
+                            class="fa fa-times city-icon city-icon-cancel"
+                            title="Cancel"
+                            role="button"
+                            tabindex="0"
+                        ></i>
+                    </button>
                 </div>
             }
         </div>

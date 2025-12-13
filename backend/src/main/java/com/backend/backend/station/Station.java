@@ -1,31 +1,24 @@
 package com.backend.backend.station;
 
-public class Station {
-    private Long id;
-    private Long cityId;
-    private String name;
-    
-    public Long getId() {
-        return id;
+import com.backend.backend.entity.Entity;
+
+public class Station extends Entity {
+    private int cityId;
+    private String cityName;
+
+    public String getName() {
+        return cityName;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setName(String cityName) {
+        this.cityName = cityName;
     }
 
-    public Long getCityId() {
+    public int getCityId() {
         return cityId;
     }
 
-    public void setCityId(Long cityId) {
+    public void setCityId(int cityId) {
         this.cityId = cityId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

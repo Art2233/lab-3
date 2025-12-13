@@ -28,3 +28,42 @@ body {
 .fa {
     font-size: 18px;
 }
+
+.save {
+    color: #28a745;
+}
+
+.cancel {
+    color: #dc3545;
+}
+
+.input-data {
+    height: 36px;
+}
+
+.ng-select .ng-select-container {
+    border: 1px solid #dee2e6 !important;
+}
+
+.btn-default {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    * {
+        cursor: pointer !important;
+    }
+
+    &:hover {
+        background-color: rgb(0 0 0 / 4%);
+    }
+}
+
+button[disabled] {
+    cursor: not-allowed;
+
+    * {
+        cursor: not-allowed !important;
+        color: rgba(0, 0, 0, 0.38) !important;
+    }
+}

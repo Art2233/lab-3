@@ -1,0 +1,9 @@
+.btn-field {
+    width: 95px;
+
+    i {
+        &:first-child {
+            margin-right: 5px;
+        }
+    }
+}

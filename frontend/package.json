@@ -30,6 +30,7 @@
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
+    "@ng-select/ng-select": "^20.4.0",
     "@ngrx/effects": "^20.1.0",
     "@ngrx/store": "^20.1.0",
     "@ngrx/store-devtools": "^20.1.0",

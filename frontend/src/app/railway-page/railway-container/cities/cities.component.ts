@@ -4,10 +4,11 @@ import { ICity } from '../../../http/city.service';
 import { ContextMenuModule } from '@perfectmemory/ngx-contextmenu';
 import { CityViewComponent } from './city-view/city-view.component';
 import { generateNewCityItem } from '../../storage/entities/city/selector';
+import { TableContainerComponent } from '../../../shared/table-container/table-container.component';
 
 @Component({
     selector: 'app-cities',
-    imports: [ContextMenuModule, CityViewComponent],
+    imports: [ContextMenuModule, CityViewComponent, TableContainerComponent],
     templateUrl: './cities.component.html',
     styleUrl: './cities.component.scss',
 })
@@ -15,6 +16,7 @@ export class CitiesComponent {
     @Input() cities: IItem<ICity>[] = [];
     @Input() isNewCityMode: boolean = false;
     @Input() isEditCityMode: boolean = false;
+    @Input() isLoading: boolean = false;
 
     @Output() onToggleCityEditMode = new EventEmitter<{ cityId: number, mode: ItemMode }>();
     @Output() onToggleNewCityMode = new EventEmitter();

@@ -1,6 +1,5 @@
-package com.backend.backend.utils;
+package com.backend.backend.entity;
 
-import com.backend.backend.city.City;
 import com.backend.backend.connection.DBConnection;
 
 import java.sql.*;
@@ -11,12 +10,14 @@ public class EntityOperationsService {
     public <T extends Entity> List<T> getEntities(
         String sqlMethod,
         BuildClassAfterReqInterface<T> buildClass
-    ) {
+    ) throws SQLException {
         List<T> entitiesList = new ArrayList<>();
 
         Statement stmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
         try  {
-            Connection conn = DBConnection.getConnection();
+            conn = DBConnection.getConnection();
 
             if (conn == null) throw new IllegalStateException("НЕ підключено до БД");
 
@@ -24,7 +25,7 @@ public class EntityOperationsService {
             boolean hasResultSet = stmt.execute(sqlMethod);
 
             if (hasResultSet) {
-                ResultSet rs = stmt.getResultSet();
+                rs = stmt.getResultSet();
                 while (rs.next()) {
                     entitiesList.add(buildClass.build(rs));
                 }
@@ -33,6 +34,18 @@ public class EntityOperationsService {
             throw new IllegalStateException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+
+            if (stmt != null) {
+                stmt.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
         }
 
         entitiesList.sort((a, b) -> Math.toIntExact(a.getId() - b.getId()));
@@ -44,10 +57,12 @@ public class EntityOperationsService {
             String sqlMethod,
             EntityOperationsInterface operations,
             BuildClassAfterReqInterface<T> buildClass
-    ) {
+    ) throws SQLException {
         PreparedStatement pstmt = null;
+        Connection conn = null;
+        ResultSet rs = null;
         try  {
-            Connection conn = DBConnection.getConnection();
+            conn = DBConnection.getConnection();
 
             if (conn == null) throw new IllegalStateException("НЕ підключено до БД");
 
@@ -55,7 +70,7 @@ public class EntityOperationsService {
             operations.applyActions(pstmt);
             pstmt.executeUpdate();
 
-            ResultSet rs = pstmt.getGeneratedKeys();
+            rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 return buildClass.build(rs);
             }
@@ -63,6 +78,16 @@ public class EntityOperationsService {
             throw new IllegalStateException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return null;
     }
@@ -71,12 +96,13 @@ public class EntityOperationsService {
             String sqlMethod,
             EntityOperationsInterface operations,
             BuildClassAfterReqInterface<T> buildClass
-    ) {
+    ) throws SQLException {
+        Connection conn =  null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
         try {
-            Connection conn = DBConnection.getConnection();
+            conn = DBConnection.getConnection();
 
             if (conn == null) throw new IllegalStateException("НЕ підключено до БД");
 
@@ -92,6 +118,16 @@ public class EntityOperationsService {
             throw new IllegalStateException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstmt != null) {
+                pstmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return null;
     }
@@ -99,10 +135,11 @@ public class EntityOperationsService {
     public void deleteEntity(
             String sqlMethod,
             EntityOperationsInterface operations
-    ) {
+    ) throws SQLException {
         PreparedStatement pstmt = null;
+        Connection conn =  null;
         try {
-            Connection conn = DBConnection.getConnection();
+            conn = DBConnection.getConnection();
             if (conn == null) throw new IllegalStateException("НЕ підключено до БД");
 
             pstmt = conn.prepareStatement(sqlMethod);
@@ -112,6 +149,14 @@ public class EntityOperationsService {
             throw new IllegalStateException(e);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }  finally {
+            if (pstmt != null) {
+                pstmt.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 }

@@ -1,0 +1,13 @@
+<div class="page-row h-100 position-relative">
+    <div class="table-wrap">
+        <div class="table-responsive h-100">
+            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        </div>
+    </div>
+
+    <app-loading [isLoading]="isLoading"></app-loading>
+
+    <div class="btn-col mt-3 mb-10">
+        <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
+    </div>
+</div>

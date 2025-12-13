@@ -13,9 +13,7 @@ import java.util.Map;
 @RequestMapping("/api/city")
 @CrossOrigin(origins = "http://localhost:4200") //for development
 public class CityController {
-
     private final CityService cityService;
-
     public CityController(CityService cityService) {
         this.cityService = cityService;
     }
@@ -57,16 +55,13 @@ public class CityController {
 
     //SQL Injection
     @GetMapping("/get-list")
-    public List<City> getCities() {
-        return cityService.getAll();
+    public List<City> getCities() throws SQLException {
+        return cityService.getCities();
     }
 
     @PostMapping("/new")
     public City createCity(@RequestBody Map<String, String> body) {
         String name = body.get("name");
-        if (null == name || name.isEmpty()) {
-            throw new IllegalArgumentException("name is required");
-        }
         try {
             return cityService.createNewCity(name);
         } catch (SQLException e) {
@@ -76,10 +71,6 @@ public class CityController {
 
     @PutMapping("/update/{id}")
     public City updateCity(@PathVariable String id,  @RequestBody City city) {
-        if (null == city.getName() || city.getName().isEmpty()) {
-            throw new IllegalArgumentException("name is required");
-        }
-
         try {
             return cityService.updateCity(Math.toIntExact(city.getId()), city.getName());
         } catch (SQLException e) {

@@ -1,0 +1,16 @@
+<div class="confirm-modal">
+    <div class="modal-header">
+        <h5 class="modal-title">Confirmation</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.close(false)"></button>
+    </div>
+
+    <div class="modal-body">
+        <div class="prompt-text">{{ prompt }}</div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close(false)">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="modal.close(true)">Confirm</button>
+    </div>
+</div>
+

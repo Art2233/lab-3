@@ -1,7 +1,6 @@
 .context-menu {
     --ngx-contextmenu-focusable-border-bottom: 1px dotted #756e87;
 
-    /* Styling of the context menu itself */
     --ngx-contextmenu-font-family: sans-serif;
     --ngx-contextmenu-background-color: white;
     --ngx-contextmenu-border-radius: 0px;
@@ -15,7 +14,6 @@
     --ngx-contextmenu-text-color: #333;
     --ngx-contextmenu-max-height: 100vh;
 
-    /* Styling of context menu items */
     --ngx-contextmenu-item-background-hover-color: #f8f8f8;
     --ngx-contextmenu-item-separator-color: #333;
     --ngx-contextmenu-item-separator-padding: 10px;
@@ -32,7 +30,7 @@
 .ngx-contextmenu .ngx-context-menu-item[role='menuitem'] {
     display: flex;
     align-items: center;
-    gap: 5px; // отступ между иконкой и текстом
+    gap: 5px;
     justify-content: left !important;
     margin: 0;
 }

@@ -1,0 +1,74 @@
+<app-table-container [isLoading]="isLoading">
+
+    <ng-template #content>
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <div class="row">
+                        <th class="number">#</th>
+                        <th class="col">Station</th>
+                        <th class="col">City</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+                @for (stationItem of stations; track $index) {
+                    <tr 
+                        [contextMenu]="isNewStationMode || isEditStationMode ? undefined : stationMenu"
+                        [contextMenuValue]="stationItem"
+                    >
+                        <div class="row">
+                            <th class="number">{{ $index + 1 }}</th>
+
+                            <td class="col">
+                                <app-station-view
+                                    (onSave)="onSaveStation.emit($event)"
+                                    (onClose)="onToggleEditStationMode.emit({ stationId: stationItem.item.id, mode: ItemMode.View })"
+                                    [stationItem]="stationItem"
+                                    [citiesStorage]="citiesStorage"
+                                >
+                                </app-station-view>
+                            </td>
+                        </div>
+                    </tr>
+                }
+                @if (isNewStationMode) {
+                    <tr>
+                        <div class="row">
+                            <th class="number">{{ stations.length + 1 }}</th>
+                            <td class="col">
+                                <app-station-view
+                                    (onSave)="onSaveStation.emit($event)"
+                                    (onClose)="onToggleNewStationMode.emit()"
+                                    [stationItem]="newStation"
+                                    [citiesStorage]="citiesStorage"
+                                >
+                                </app-station-view>
+                            </td>
+                        </div>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </ng-template>
+
+    <ng-template #button>
+        <button
+            class="btn btn-primary w-auto"
+            (click)="onToggleNewStationMode.emit()"
+            [disabled]="isNewStationMode || isEditStationMode"
+        >
+            Add Station
+        </button>
+    </ng-template>
+
+</app-table-container>
+
+<context-menu #stationMenu menuClass="context-menu">
+    @for(menuItem of contextMenuItems; track $index) {
+        <ng-template contextMenuItem (execute)="menuItem.action($event.value)">
+            <i class="{{ menuItem.icon }}"></i>
+            {{ menuItem.label }}
+        </ng-template>
+    }
+</context-menu>

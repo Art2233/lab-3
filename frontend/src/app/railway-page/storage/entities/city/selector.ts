@@ -2,11 +2,12 @@ import { createSelector } from "@ngrx/store";
 import { ICity } from "../../../../http/city.service";
 import { IItem, ItemMode, selectRailwayState } from "../../reducer";
 
-export interface ICitySelector {
+export interface ICityState {
     citiesStorage: ICity[];
     cities: IItem<ICity>[];
     isNewCityMode: boolean;
     isEditCityMode: boolean;
+    isLoading: boolean;
 }
 
 export const selectCitySelector = createSelector(
@@ -32,6 +33,11 @@ export const selectIsNewCityMode = createSelector(
 export const selectIsEditCityMode = createSelector(
     selectCitySelector,
     (cityState) => cityState.isEditCityMode,
+);
+
+export const slectIsLoadingCity = createSelector(
+    selectCitySelector,
+    (cityState) => cityState.isLoading,
 );
 
 export function generateNewCityItem(mode: ItemMode): IItem<ICity> {

@@ -1,26 +1,15 @@
 package com.backend.backend.city;
 
-import com.backend.backend.utils.Entity;
+import com.backend.backend.entity.Entity;
 
 public class City extends Entity {
-    private Long id;
-    private String name;
-
-    public City() {
-        super();
-    }
-
-    public City(Long id, String name) {
-        super(id);
-        this.name = name;
-    }
-
+    private String cityName;
 
     public String getName() {
-        return name;
+        return cityName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String cityName) {
+        this.cityName = cityName;
     }
 }

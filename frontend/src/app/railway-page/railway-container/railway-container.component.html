@@ -2,7 +2,7 @@
     <div class="col-1"></div>
     <div class="col main-col">
         <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs">
-            <li [ngbNavItem]="Tabs.Cities">
+            <li [ngbNavItem]="Tabs.Cities" [disabled]="(isDisabledTab$ | async) ?? false">
                 <button ngbNavLink>Cities</button>
                 <ng-template ngbNavContent>
                     <app-cities
@@ -13,20 +13,43 @@
                         [cities]="(cities$ | async) ?? []"
                         [isNewCityMode]="(isNewCityMode$ | async) ?? false"
                         [isEditCityMode]="(isEditCityMode$ | async) ?? false"
+                        [isLoading]="(isLoadingCity$ | async) ?? false"
                     >
                     </app-cities>
                 </ng-template>
             </li>
-            <li [ngbNavItem]="Tabs.Stations">
+            <li [ngbNavItem]="Tabs.Stations" [disabled]="(isDisabledTab$ | async) ?? false">
                 <button ngbNavLink>Stations</button>
                 <ng-template ngbNavContent>
-
+                    <app-stations
+                        (onSaveStation)="store.dispatch(StationsActions.SaveStationAction($event))"
+                        (onToggleNewStationMode)="store.dispatch(StationsActions.ToggleNewStationModeAction())"
+                        (onToggleEditStationMode)="store.dispatch(StationsActions.ToggleEditStationModeAction($event))"
+                        (onDeleteStation)="store.dispatch(StationsActions.DeleteStationAction($event))"
+                        [stations]="(stations$ | async) ?? []"
+                        [citiesStorage]="(citiesStorage$ | async) ?? []"
+                        [isNewStationMode]="(isNewStationMode$ | async) ?? false"
+                        [isEditStationMode]="(isEditStationMode$ | async) ?? false"
+                        [isLoading]="(isStationsLoading$ | async) ?? false"
+                    >
+                    </app-stations>
                 </ng-template>
             </li>
-            <li [ngbNavItem]="Tabs.Trips">
+            <li [ngbNavItem]="Tabs.Trips" [disabled]="(isDisabledTab$ | async) ?? false">
                 <button ngbNavLink>Trips</button>
                 <ng-template ngbNavContent>
-
+                    <app-trips
+                        (onToggleEditTripMode)="store.dispatch(TripActions.ToggleEditTripModeAction($event))"
+                        (onToggleNewTripMode)="store.dispatch(TripActions.ToggleNewTripModeAction())"
+                        (onSaveTrip)="store.dispatch(TripActions.SaveTripAction($event))"
+                        (onDeleteTrip)="store.dispatch(TripActions.DeleteTripAction($event))"
+                        [trips]="(trips$ | async) ?? []"
+                        [citiesStorage]="(citiesStorage$ | async) ?? []"
+                        [stationsStorage]="(stationsStorage$ |  async) ?? []"
+                        [isEditTripMode]="(isEditTripMode$ | async) ?? false"
+                        [isNewTripMode]="(isNewTripMode$ | async) ?? false"
+                    >
+                    </app-trips>
                 </ng-template>
             </li>
         </ul>

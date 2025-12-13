@@ -1,0 +1,57 @@
+
+<div class="row">
+    @if (stationItemCopy.mode === ItemMode.View) {
+        <div class="col">{{ stationItem.item.name }}</div>
+        <div class="col">{{ stationItem.city.name }}</div>
+    }
+    @else {
+        <div class="col">
+            <input
+                #inputStationField
+                type="text"
+                class="form-control form-control-sm input-data col-12"
+                placeholder="Station name"
+                [(ngModel)]="stationItemCopy.item.name"
+            >
+        </div>
+        <div class="col">
+            <ng-select
+                (ngModelChange)="setCityId($event)"
+                [ngModel]="stationItemCopy.item.cityId"
+                [items]="citiesStorage"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+            >
+            </ng-select>
+        </div>
+
+        <div class="btn-field">
+            <button
+                class="btn-default"
+                (click)="onSave.emit({ item: stationItemCopy.item })"
+                [disabled]="!stationItemCopy.item.name.length || !stationItemCopy.item.cityId"
+            >
+                <i
+                    class="fa fa-check save"
+                    title="Save"
+                    role="button"
+                    tabindex="0"
+                ></i>
+            </button>
+
+            <button
+                class="btn-default"
+                (click)="onClose.emit()"
+            >
+                <i
+                    class="fa fa-times cancel"
+                    title="Cancel"
+                    role="button"
+                    tabindex="0"
+                ></i>
+            </button>
+        </div>
+
+    }
+</div>

@@ -1,0 +1,105 @@
+<div class="row">
+    @if (tripeItemCopy.mode === ItemMode.View) {
+        <div class="col">
+            {{ tripeItemCopy.departureStation.item.name }} ({{ getCurrentCity(tripeItemCopy.departureStation.city.id) }})
+        </div>
+        <div class="col">
+            {{ tripeItemCopy.arrivalStation.item.name }} ({{ getCurrentCity(tripeItemCopy.arrivalStation.city.id) }})
+        </div>
+        <div class="col">
+            {{ tripeItemCopy.item.trainNumber }}
+        </div>
+        <div class="col">
+            {{ tripeItemCopy.item.departureTime | date: 'dd.MM.yyyy HH:mm' }}
+        </div>
+        <div class="col">
+            {{ tripeItemCopy.item.arrivalTime | date: 'dd.MM.yyyy HH:mm' }}
+        </div>
+    }
+    @else {
+        <div class="col">
+            <ng-select
+                (ngModelChange)="setDepartureStation($event)"
+                [ngModel]="tripeItemCopy.item.departureStationId"
+                [items]="statiosStorage"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+            >
+            </ng-select>
+        </div>
+
+        <div class="col">
+            <ng-select
+                (ngModelChange)="setArrivalStation($event)"
+                [ngModel]="tripeItemCopy.item.arrivalStationId"
+                [items]="statiosStorage"
+                [clearable]="false"
+                bindLabel="name"
+                bindValue="id"
+            >
+            </ng-select>
+        </div>
+
+        <div class="col">
+            <input
+                #inputTrainNumber
+                type="text"
+                class="form-control form-control-sm input-data col-12"
+                placeholder="Train Number"
+                [(ngModel)]="tripeItemCopy.item.trainNumber"
+            >
+        </div>
+
+        <div class="col">
+            <input
+                #inputDepartureTime
+                type="datetime-local"
+                class="form-control form-control-sm input-data col-12"
+                [(ngModel)]="departureTimeLocal"
+            >
+        </div>
+
+        <div class="col">
+            <input
+                #inputArrivalTime
+                type="datetime-local"
+                class="form-control form-control-sm input-data col-12"
+                [(ngModel)]="arrivalTimeLocal"
+            >
+        </div>
+
+        <div class="btn-field">
+            <button
+                class="btn-default"
+                (click)="onSave.emit({ item: tripeItemCopy.item })"
+                [disabled]="
+                    !tripeItemCopy.item.trainNumber.length ||
+                    !tripeItemCopy.item.departureStationId ||
+                    !tripeItemCopy.item.arrivalStationId ||
+                    !tripeItemCopy.item.departureTime.length ||
+                    !tripeItemCopy.item.arrivalTime.length
+                "
+            >
+                <i
+                    class="fa fa-check save"
+                    title="Save"
+                    role="button"
+                    tabindex="0"
+                ></i>
+            </button>
+
+            <button
+                class="btn-default"
+                (click)="onClose.emit()"
+            >
+                <i
+                    class="fa fa-times cancel"
+                    title="Cancel"
+                    role="button"
+                    tabindex="0"
+                ></i>
+            </button>
+        </div>
+    }
+</div>

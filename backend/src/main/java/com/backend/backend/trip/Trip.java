@@ -1,29 +1,29 @@
 package com.backend.backend.trip;
 
-import java.time.LocalDateTime;
+import com.backend.backend.entity.Entity;
 
-public class Trip {
-    private Long id;
-    private Long stationId;
+
+public class Trip extends Entity {
+    private int departureStationId;
+    private int arrivalStationId;
     private String trainNumber;
-    private String destination;
-    private LocalDateTime departureTime;
-    private LocalDateTime arrivalTime;
+    private String departureTime;
+    private String arrivalTime;
 
-    public Long getId() {
-        return id;
+    public int getDepartureStationId() {
+        return departureStationId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setDepartureStationId(int departureStationId) {
+        this.departureStationId = departureStationId;
     }
 
-    public Long getStationId() {
-        return stationId;
+    public int getArrivalStationId() {
+        return arrivalStationId;
     }
 
-    public void setStationId(Long stationId) {
-        this.stationId = stationId;
+    public void setArrivalStationId(int arrivalStationId) {
+        this.arrivalStationId = arrivalStationId;
     }
 
     public String getTrainNumber() {
@@ -34,27 +34,19 @@ public class Trip {
         this.trainNumber = trainNumber;
     }
 
-    public String getDestination() {
-        return destination;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public LocalDateTime getDepartureTime() {
+    public String getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(LocalDateTime departureTime) {
+    public void setDepartureTime(String departureTime) {
         this.departureTime = departureTime;
     }
 
-    public LocalDateTime getArrivalTime() {
+    public String getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(LocalDateTime arrivalTime) {
+    public void setArrivalTime(String arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 }

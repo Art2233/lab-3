@@ -1,0 +1,33 @@
+.number {
+    width: 70px;
+}
+
+:host {
+    display: block;
+    height: 100%;
+}
+
+.page-row {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.table-wrap {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.table-wrap .table-responsive {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.btn-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+}

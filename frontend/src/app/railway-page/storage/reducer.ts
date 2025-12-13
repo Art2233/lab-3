@@ -1,7 +1,9 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { ICitySelector } from './entities/city/selector';
+import { ICityState } from './entities/city/selector';
 import * as Actions from './actions';
 import { IStore } from '../../reducer';
+import { IStationSelector } from './entities/station/selector';
+import { ITripSelector } from './entities/trip/selector';
 
 export enum ItemMode {
     View = 'view',
@@ -14,7 +16,9 @@ export interface IItem<T> {
 }
 
 export interface IRailwayState {
-    cityState: ICitySelector;
+    cityState: ICityState;
+    stationState: IStationSelector;
+    tripState: ITripSelector;
 }
 
 export const railwayState: IRailwayState = {
@@ -23,6 +27,21 @@ export const railwayState: IRailwayState = {
         cities: [],
         isNewCityMode: false,
         isEditCityMode: false,
+        isLoading: false,
+    },
+    stationState: {
+        stationsStorage: [],
+        stations: [],
+        isNewStationMode: false,
+        isEditStationMode: false,
+        isLoading: false,
+    },
+    tripState: {
+        tripsStorage: [],
+        trips: [],
+        isNewTripMode: false,
+        isEditTripMode: false,
+        isLoading: false,
     },
 };
 
@@ -37,6 +56,20 @@ export const reducer = createReducer(
         cityState: {
             ...state.cityState,
             ...cityState,
+        },
+    })),
+    on(Actions.ExtendStationStateActions, (state, { stationState }) => ({
+        ...state,
+        stationState: {
+            ...state.stationState,
+            ...stationState,
+        },
+    })),
+    on(Actions.ExtendTripStateActions, (state, { tripState }) => ({
+        ...state,
+        tripState: {
+            ...state.tripState,
+            ...tripState,
         },
     })),
 );
